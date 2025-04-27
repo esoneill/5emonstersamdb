@@ -5,22 +5,29 @@
 <meta charset="UTF-8">
 <style>
 body {
-max-width: 700px;
-margin: auto;
-font-size: 18px;
-font-family: sans-serif;
-padding: 10px;
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    font-family: sans-serif;
+    padding: 10px;
 }
 p, li {
-line-height: 1.5em;
+    line-height: 1.5em;
+}
+ul, ol {
+    padding-left: 20px;
+    margin-left: 0;
+}
+li {
+    margin-left: 0; /* Remove margin from li */
 }
 table {
-border-collapse: collapse;
+    border-collapse: collapse;
 }
 th, td {
-border: 1px solid black;
-padding: 5px;
-text-align: left;
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
 }
 </style>
 <title>Cloaker</title>
@@ -42,10 +49,6 @@ text-align: left;
 <th>SCORE</th>
 <th>MOD</th>
 <th>SAVE</th>
-<th>STAT</th>
-<th>SCORE</th>
-<th>MOD</th>
-<th>SAVE</th>
 </tr>
 </thead>
 <tbody>
@@ -54,18 +57,10 @@ text-align: left;
 <td>17</td>
 <td>+3</td>
 <td>+3</td>
-<td>INT</td>
-<td>13</td>
-<td>+1</td>
-<td>+1</td>
 </tr>
 <tr>
 <td>DEX</td>
 <td>15</td>
-<td>+2</td>
-<td>+2</td>
-<td>WIS</td>
-<td>14</td>
 <td>+2</td>
 <td>+2</td>
 </tr>
@@ -74,6 +69,20 @@ text-align: left;
 <td>12</td>
 <td>+1</td>
 <td>+1</td>
+</tr>
+<tr>
+<td>INT</td>
+<td>13</td>
+<td>+1</td>
+<td>+1</td>
+</tr>
+<tr>
+<td>WIS</td>
+<td>14</td>
+<td>+2</td>
+<td>+2</td>
+</tr>
+<tr>
 <td>CHA</td>
 <td>7</td>
 <td>-2</td>
@@ -83,10 +92,10 @@ text-align: left;
 </table>
 <ul>
 <li><strong>Immunities</strong>: Frightened</li>
-<li><strong>Skills</strong>: Stealth</li>
+<li><strong>Skills</strong>: Stealth +5</li>
 <li><strong>Senses</strong>: darkvision 120 ft.; Passive Perception 12</li>
 <li><strong>Languages</strong>: Deep Speech, Undercommon</li>
-<li><strong>CR</strong> 8 (XP 3,900; PB +3</li>
+<li><strong>CR</strong> 8 (XP 3,900; PB +3)</li>
 </ul>
 <h2>Traits</h2>
 <p><strong><em>Light Sensitivity.</em></strong> While in Bright Light, the cloaker has Disadvantage on attack rolls.</p>
