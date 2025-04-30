@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-json_to_csv.py  ––  v2.1  (2025-04-29)
+json_to_csv.py  ––  v2.2  (2025-04-29)
 --------------------------------------
 Convert a JSON array of monster objects (from html_to_json.py) to CSV.
 
-• Ensures a **Gear** column (taken from the “gear” key) is always present
-  and is appended as the final column in the output CSV.
+Key features
+• Guarantees a Gear column as the LAST column in the CSV.
+• If a record’s “gear” value is missing or empty, writes “None” instead.
 
 Usage:
     python json_to_csv.py monstersfromhtml.json [monsters.csv]
@@ -17,7 +18,6 @@ import pathlib
 import sys
 from typing import Union
 
-
 # ---------------------------------------------------------------------------
 
 def build_fieldnames(records):
@@ -25,9 +25,14 @@ def build_fieldnames(records):
     keys = {k for r in records for k in r}
     if "gear" in keys:
         keys.remove("gear")
-        return sorted(keys) + ["gear"]
-    return sorted(keys)
+    return sorted(keys) + ["gear"]
 
+def normalize_gear(records):
+    """Ensure every record has a non-empty gear value."""
+    for rec in records:
+        gear_val = rec.get("gear", "")
+        if not isinstance(gear_val, str) or not gear_val.strip():
+            rec["gear"] = "None"
 
 def json_to_csv(json_path: Union[str, pathlib.Path],
                 csv_path: Union[str, pathlib.Path, None] = None) -> None:
@@ -37,21 +42,22 @@ def json_to_csv(json_path: Union[str, pathlib.Path],
     # 1. Load JSON -----------------------------------------------------------
     with json_path.open(encoding="utf-8") as fp:
         data = json.load(fp)
-
     if not isinstance(data, list):
         raise ValueError("JSON must be a top-level array of objects")
 
-    # 2. Prepare header ------------------------------------------------------
+    # 2. Normalise Gear values ----------------------------------------------
+    normalize_gear(data)
+
+    # 3. Prepare header ------------------------------------------------------
     fieldnames = build_fieldnames(data)
 
-    # 3. Write CSV -----------------------------------------------------------
+    # 4. Write CSV -----------------------------------------------------------
     with csv_path.open("w", newline="", encoding="utf-8") as fp:
         writer = csv.DictWriter(fp, fieldnames=fieldnames, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(data)
 
     print(f"✅  Wrote {len(data):,} rows to {csv_path}")
-
 
 # ---------------------------------------------------------------------------
 
